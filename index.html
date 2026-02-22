@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asta Client - Главная</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">Asta Client</div>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="login.html" class="login-btn">Вход</a>
+                <a href="register.html" class="register-btn">Регистрация</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Добро пожаловать на сайт Asta Client</h1>
+            <p>Скачайте наш модифицированный клиент и начните играть прямо сейчас!</p>
+        </section>
+
+        <section class="download-section">
+            <h2>Скачать клиент</h2>
+            <div class="client-info">
+                <p>Версия: <span id="client-version">Загрузка...</span></p>
+                <p>Размер: <span id="client-size">Загрузка...</span></p>
+            </div>
+            <button id="download-btn" class="btn btn-primary">Скачать</button>
+        </section>
+
+        <section class="stats-section">
+            <h2>Статистика сервера</h2>
+            <div class="stats-display">
+                <p>Игроков онлайн: <span id="player-stats" class="stats-value">Загрузка...</span></p>
+                <p class="stats-timestamp" id="stats-timestamp"></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Asta Client. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="config/firebase-config.js"></script>
+    <script type="module" src="js/download.js"></script>
+    <script type="module" src="js/stats.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

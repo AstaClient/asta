@@ -1,0 +1,630 @@
+/* ============================================
+   Minecraft Client Website - Responsive Styles
+   Адаптивные стили для планшетов и мобильных устройств
+   ============================================ */
+
+/* ============================================
+   Планшеты (768px - 1024px)
+   ============================================ */
+
+@media (max-width: 1024px) {
+    /* Контейнер */
+    .container {
+        max-width: 100%;
+        padding: 0 var(--spacing-md);
+    }
+
+    /* Навигация */
+    .navbar .container {
+        padding: 0 var(--spacing-md);
+    }
+
+    .nav-links {
+        gap: var(--spacing-md);
+    }
+
+    /* Главная страница */
+    .hero {
+        padding: var(--spacing-xl) 0;
+    }
+
+    .hero h1 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+    }
+
+    .hero p {
+        font-size: var(--font-size-base);
+        max-width: 500px;
+    }
+
+    /* Секции */
+    .download-section,
+    .stats-section,
+    .auth-section,
+    .dashboard-section {
+        padding: var(--spacing-lg);
+    }
+
+    /* Кнопки */
+    .btn {
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+}
+
+/* ============================================
+   Мобильные устройства (до 768px)
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Базовые размеры шрифтов */
+    :root {
+        --font-size-base: 14px;
+        --font-size-sm: 12px;
+        --font-size-lg: 16px;
+        --font-size-xl: 20px;
+        --font-size-2xl: 26px;
+        --spacing-xl: 1.5rem;
+        --spacing-2xl: 2rem;
+    }
+
+    /* Контейнер */
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+
+    /* Навигация */
+    .navbar {
+        padding: var(--spacing-sm) 0;
+    }
+
+    .navbar .container {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        align-items: stretch;
+    }
+
+    .logo {
+        font-size: var(--font-size-lg);
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        width: 100%;
+    }
+
+    .nav-links li {
+        width: 100%;
+    }
+
+    .nav-links a {
+        display: block;
+        text-align: center;
+        padding: var(--spacing-md);
+        width: 100%;
+    }
+
+    .username-display {
+        text-align: center;
+        display: block;
+        width: 100%;
+    }
+
+    /* Типографика */
+    h1 {
+        font-size: var(--font-size-2xl);
+        letter-spacing: 1px;
+    }
+
+    h2 {
+        font-size: var(--font-size-xl);
+        letter-spacing: 1px;
+    }
+
+    h3 {
+        font-size: var(--font-size-lg);
+    }
+
+    /* Главная страница */
+    main {
+        padding: var(--spacing-xl) 0;
+    }
+
+    .hero {
+        padding: var(--spacing-lg) 0;
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .hero h1 {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .hero p {
+        font-size: var(--font-size-sm);
+        max-width: 100%;
+        margin: 0 auto var(--spacing-lg);
+        padding: 0 var(--spacing-sm);
+    }
+
+    /* Секции и карточки */
+    .download-section,
+    .stats-section,
+    .auth-section,
+    .dashboard-section {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+        border-radius: var(--radius-md);
+    }
+
+    .download-section h2,
+    .stats-section h2 {
+        margin-bottom: var(--spacing-md);
+        font-size: var(--font-size-lg);
+    }
+
+    /* Информация о клиенте */
+    .client-info {
+        padding: var(--spacing-sm);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .client-info p {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+        font-size: var(--font-size-sm);
+    }
+
+    /* Статистика */
+    .stats-display {
+        padding: var(--spacing-md);
+        font-size: var(--font-size-lg);
+    }
+
+    .stats-display .count {
+        font-size: var(--font-size-xl);
+        margin-bottom: var(--spacing-xs);
+    }
+
+    /* Кнопки */
+    .btn {
+        padding: var(--spacing-md);
+        font-size: var(--font-size-sm);
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Формы */
+    .form-group {
+        margin-bottom: var(--spacing-md);
+    }
+
+    .form-group label {
+        font-size: 12px;
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+
+    .error-message,
+    .form-group small {
+        font-size: 11px;
+    }
+
+    /* Страницы аутентификации */
+    .auth-section {
+        max-width: 100%;
+        margin: var(--spacing-lg) auto;
+        padding: var(--spacing-md);
+    }
+
+    .auth-section h1 {
+        font-size: var(--font-size-xl);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .form-footer {
+        margin-top: var(--spacing-md);
+        padding-top: var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+
+    /* Личный кабинет */
+    .dashboard-section h1 {
+        margin-bottom: var(--spacing-lg);
+        font-size: var(--font-size-xl);
+    }
+
+    .user-info {
+        padding: var(--spacing-md);
+    }
+
+    .user-info h2 {
+        margin-bottom: var(--spacing-md);
+        font-size: var(--font-size-lg);
+    }
+
+    .user-info p {
+        margin-bottom: var(--spacing-sm);
+        font-size: var(--font-size-sm);
+    }
+
+    /* Footer */
+    footer {
+        padding: var(--spacing-lg) 0;
+        margin-top: var(--spacing-xl);
+    }
+
+    footer p {
+        font-size: var(--font-size-sm);
+        padding: 0 var(--spacing-md);
+    }
+
+    /* Toast уведомления */
+    .toast {
+        right: var(--spacing-sm);
+        left: var(--spacing-sm);
+        bottom: var(--spacing-sm);
+        padding: var(--spacing-sm) var(--spacing-md);
+        min-width: auto;
+        font-size: var(--font-size-sm);
+    }
+
+    /* Утилитарные классы - адаптация */
+    .flex {
+        flex-direction: column;
+    }
+
+    .gap-1 {
+        gap: var(--spacing-sm);
+    }
+
+    .gap-2 {
+        gap: var(--spacing-md);
+    }
+}
+
+/* ============================================
+   Маленькие мобильные устройства (до 480px)
+   ============================================ */
+
+@media (max-width: 480px) {
+    /* Еще более компактные размеры */
+    :root {
+        --font-size-base: 13px;
+        --font-size-sm: 11px;
+        --font-size-lg: 15px;
+        --font-size-xl: 18px;
+        --font-size-2xl: 22px;
+        --spacing-md: 0.75rem;
+        --spacing-lg: 1rem;
+        --spacing-xl: 1.25rem;
+        --spacing-2xl: 1.5rem;
+    }
+
+    /* Контейнер */
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+
+    /* Навигация */
+    .logo {
+        font-size: var(--font-size-base);
+        letter-spacing: 1px;
+    }
+
+    .nav-links a {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+
+    /* Главная страница */
+    .hero h1 {
+        font-size: clamp(1.3rem, 7vw, 1.8rem);
+        letter-spacing: 0.5px;
+    }
+
+    .hero p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    /* Секции */
+    .download-section,
+    .stats-section,
+    .auth-section,
+    .dashboard-section {
+        padding: var(--spacing-sm) var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+    }
+
+    /* Кнопки */
+    .btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 12px;
+        letter-spacing: 0.5px;
+    }
+
+    /* Формы */
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: var(--spacing-sm);
+        font-size: 13px;
+    }
+
+    /* Статистика */
+    .stats-display {
+        padding: var(--spacing-sm);
+        font-size: var(--font-size-base);
+    }
+
+    .stats-display .count {
+        font-size: var(--font-size-lg);
+    }
+
+    /* Информация о клиенте */
+    .client-info {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+
+    .client-info p {
+        font-size: 12px;
+    }
+
+    /* Toast */
+    .toast {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 12px;
+    }
+}
+
+/* ============================================
+   Ландшафтная ориентация на мобильных
+   ============================================ */
+
+@media (max-width: 768px) and (orientation: landscape) {
+    /* Навигация более компактная */
+    .navbar {
+        padding: var(--spacing-xs) 0;
+    }
+
+    .navbar .container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .nav-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--spacing-sm);
+        width: auto;
+    }
+
+    .nav-links li {
+        width: auto;
+    }
+
+    .nav-links a {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-sm);
+    }
+
+    /* Уменьшаем вертикальные отступы */
+    .hero {
+        padding: var(--spacing-md) 0;
+    }
+
+    main {
+        padding: var(--spacing-md) 0;
+    }
+
+    .download-section,
+    .stats-section,
+    .auth-section,
+    .dashboard-section {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+    }
+}
+
+/* ============================================
+   Адаптивная сетка
+   ============================================ */
+
+/* Сетка для больших экранов */
+@media (min-width: 1025px) {
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: var(--spacing-xl);
+    }
+}
+
+/* Сетка для планшетов */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--spacing-lg);
+    }
+}
+
+/* Сетка для мобильных - одна колонка */
+@media (max-width: 768px) {
+    .grid {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+}
+
+/* ============================================
+   Адаптивные изображения
+   ============================================ */
+
+@media (max-width: 768px) {
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Скрываем декоративные элементы на мобильных */
+    .scanline::before {
+        display: none;
+    }
+}
+
+/* ============================================
+   Оптимизация для touch устройств
+   ============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+    /* Увеличиваем области нажатия */
+    .btn {
+        min-height: 44px;
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+
+    .nav-links a {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Убираем hover эффекты */
+    .btn:hover::before {
+        display: none;
+    }
+
+    .download-section:hover,
+    .stats-section:hover {
+        transform: none;
+    }
+
+    /* Упрощаем анимации для производительности */
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .hero h1 {
+        animation: none;
+        text-shadow: 0 0 15px rgba(0, 255, 65, 0.7);
+    }
+}
+
+/* ============================================
+   Высокая плотность пикселей (Retina)
+   ============================================ */
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* Оптимизация для Retina дисплеев */
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Более четкие границы */
+    .btn,
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        border-width: 1px;
+    }
+}
+
+/* ============================================
+   Режим экономии трафика
+   ============================================ */
+
+@media (prefers-reduced-data: reduce) {
+    /* Отключаем фоновые эффекты */
+    body {
+        background-image: none;
+    }
+
+    /* Упрощаем тени */
+    .btn,
+    .download-section,
+    .stats-section,
+    .auth-section,
+    .dashboard-section {
+        box-shadow: none;
+    }
+
+    /* Убираем анимации */
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* ============================================
+   Режим уменьшенного движения
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    /* Отключаем все анимации и переходы */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .hero h1 {
+        animation: none;
+    }
+
+    .btn::before {
+        display: none;
+    }
+}
+
+/* ============================================
+   Печать
+   ============================================ */
+
+@media print {
+    /* Скрываем ненужные элементы при печати */
+    .navbar,
+    .nav-links,
+    footer,
+    .btn,
+    .toast {
+        display: none !important;
+    }
+
+    /* Оптимизация для печати */
+    body {
+        background: white;
+        color: black;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    /* Убираем тени и эффекты */
+    * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    /* Показываем ссылки */
+    a[href]::after {
+        content: " (" attr(href) ")";
+    }
+}

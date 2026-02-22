@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Правила для коллекции пользователей
+    // Пользователи могут читать и обновлять только свои данные
+    match /users/{userId} {
+      // Чтение: только аутентифицированный пользователь может читать свои данные
+      allow read: if request.auth != null && request.auth.uid == userId;
+      
+      // Запись: только аутентифицированный пользователь может обновлять свои данные
+      allow write: if request.auth != null && request.auth.uid == userId;
+      
+      // Создание: любой аутентифицированный пользователь может создать свой профиль
+      allow create: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Правила для коллекции версий клиента
+    // Информация о клиенте доступна всем для чтения
+    match /clientVersions/{version} {
+      // Чтение: доступно всем (даже неаутентифицированным пользователям)
+      allow read: if true;
+      
+      // Запись: запрещена для всех (только через админ панель или Cloud Functions)
+      allow write: if false;
+    }
+    
+    // Правила для логов ошибок (если используются)
+    match /error_logs/{logId} {
+      // Создание: только аутентифицированные пользователи могут создавать логи
+      allow create: if request.auth != null;
+      
+      // Чтение и изменение: запрещено (только для администраторов через backend)
+      allow read, update, delete: if false;
+    }
+    
+    // Запретить доступ ко всем остальным коллекциям по умолчанию
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

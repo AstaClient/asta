@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asta Client - Личный кабинет</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">Asta Client</div>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html">Главная</a>
+                <span class="username-display" id="username-display">Загрузка...</span>
+                <button class="btn btn-secondary logout-btn" id="logout-btn">Выход</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="dashboard-section">
+            <h1>Личный кабинет</h1>
+            <div class="user-info">
+                <h2>Информация о профиле</h2>
+                <p><strong>Имя пользователя:</strong> <span id="user-username">Загрузка...</span></p>
+                <p><strong>Email:</strong> <span id="user-email">Загрузка...</span></p>
+                <p><strong>Дата регистрации:</strong> <span id="user-created">Загрузка...</span></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Asta Client. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="config/firebase-config.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>
