@@ -64,7 +64,7 @@ class AuthModule {
       localStorage.removeItem('sessionExpiry');
       
       // Перенаправление на главную страницу
-      window.location.href = '/index.html';
+      window.location.href = './index.html';
     } catch (error) {
       console.error('Ошибка выхода:', error);
       throw error;
@@ -166,7 +166,7 @@ async function handleLogin(event) {
     await authModule.login(email, password);
     
     // Перенаправление на dashboard
-    window.location.href = '/dashboard.html';
+    window.location.href = './dashboard.html';
   } catch (error) {
     handleAuthError(error);
   }

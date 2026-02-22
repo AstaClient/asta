@@ -38,7 +38,7 @@ class DashboardModule {
                 } else {
                     // Пользователь не аутентифицирован - перенаправляем на страницу входа
                     console.log('Пользователь не аутентифицирован, перенаправление на login.html');
-                    window.location.href = 'login.html';
+                    window.location.href = './login.html';
                     resolve(false);
                 }
             });
@@ -127,7 +127,7 @@ class DashboardModule {
             logoutBtn.addEventListener('click', async () => {
                 try {
                     await auth.signOut();
-                    window.location.href = 'index.html';
+                    window.location.href = './index.html';
                 } catch (error) {
                     console.error('Ошибка выхода:', error);
                     showErrorToast('Не удалось выйти из аккаунта');

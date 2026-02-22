@@ -187,7 +187,7 @@ async function handleRegister(event) {
         await signInWithEmailAndPassword(auth, email, password);
         
         // Перенаправление на dashboard
-        window.location.href = 'dashboard.html';
+        window.location.href = './dashboard.html';
     } catch (error) {
         handleRegisterError(error);
         submitButton.disabled = false;
