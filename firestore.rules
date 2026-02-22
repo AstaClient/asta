@@ -15,6 +15,16 @@ service cloud.firestore {
       allow create: if request.auth != null && request.auth.uid == userId;
     }
     
+    // Правила для счетчиков
+    // Счетчики доступны для чтения и записи аутентифицированным пользователям
+    match /counters/{counterId} {
+      // Чтение: доступно всем аутентифицированным пользователям
+      allow read: if request.auth != null;
+      
+      // Запись: доступно всем аутентифицированным пользователям (для инкремента счетчика)
+      allow write: if request.auth != null;
+    }
+    
     // Правила для коллекции версий клиента
     // Информация о клиенте доступна всем для чтения
     match /clientVersions/{version} {
