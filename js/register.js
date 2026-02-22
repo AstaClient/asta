@@ -51,16 +51,38 @@ export class RegisterModule {
             const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
             const user = userCredential.user;
 
+            // Получаем и увеличиваем счетчик пользователей
+            const counterRef = doc(this.db, 'counters', 'users');
+            const counterDoc = await getDocs(collection(this.db, 'counters'));
+            
+            let userNumber = 1;
+            
+            try {
+                const counterSnapshot = await getDocs(query(collection(this.db, 'counters'), where('__name__', '==', 'users')));
+                if (!counterSnapshot.empty) {
+                    const counterData = counterSnapshot.docs[0].data();
+                    userNumber = (counterData.count || 0) + 1;
+                    await setDoc(counterRef, { count: userNumber });
+                } else {
+                    await setDoc(counterRef, { count: 1 });
+                }
+            } catch (counterError) {
+                console.error('Ошибка счетчика, используем timestamp:', counterError);
+                // Если счетчик не работает, используем количество миллисекунд как уникальный номер
+                userNumber = Date.now() % 1000000;
+            }
+
             // Сохранение профиля пользователя в Firestore
             await setDoc(doc(this.db, 'users', user.uid), {
                 username: username,
                 email: email,
                 createdAt: new Date(),
                 lastLogin: new Date(),
-                displayName: username
+                displayName: username,
+                userNumber: userNumber
             });
 
-            console.log('Успешная регистрация:', user.uid);
+            console.log('Успешная регистрация:', user.uid, 'Номер пользователя:', userNumber);
             return userCredential;
         } catch (error) {
             console.error('Ошибка при регистрации:', error);

@@ -106,10 +106,10 @@ class DashboardModule {
             emailElement.textContent = this.currentUser.email || 'Не указано';
         }
 
-        // Отображаем UID вместо даты регистрации
+        // Отображаем порядковый номер пользователя
         const uidElement = document.getElementById('user-created');
         if (uidElement) {
-            uidElement.textContent = this.currentUser.uid || 'Не указано';
+            uidElement.textContent = userData.userNumber || 'Не указано';
         }
     }
 
