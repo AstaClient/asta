@@ -1,6 +1,13 @@
 // Главный модуль приложения
-import { auth, db } from '../config/firebase-config.js';
-import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import firebaseConfig from '../config/firebase-config.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+// Инициализация Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 /**
  * Класс NavigationBar
@@ -16,19 +23,38 @@ class NavigationBar {
      * Рендерит навигационное меню
      * @param {Object|null} user - Текущий пользователь (null если не аутентифицирован)
      */
-    render(user) {
+    async render(user) {
         if (!this.navLinksElement) return;
         
         this.currentUser = user;
         
         if (user) {
-            // Пользователь аутентифицирован
-            this.navLinksElement.innerHTML = `
-                <a href="index.html">Главная</a>
-                <a href="dashboard.html">Личный кабинет</a>
-                <span class="username-display">${user.displayName || user.username || user.email}</span>
-                <button class="btn btn-secondary logout-btn" id="logout-btn">Выход</button>
-            `;
+            // Пользователь аутентифицирован - получаем его username из Firestore
+            try {
+                const userDocRef = doc(db, 'users', user.uid);
+                const userDoc = await getDoc(userDocRef);
+                
+                let username = user.email.split('@')[0]; // По умолчанию используем часть email
+                
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    username = userData.username || username;
+                }
+                
+                this.navLinksElement.innerHTML = `
+                    <a href="index.html">Главная</a>
+                    <a href="dashboard.html">${username}</a>
+                    <button class="btn btn-secondary logout-btn" id="logout-btn">Выход</button>
+                `;
+            } catch (error) {
+                console.error('Ошибка загрузки username:', error);
+                // Показываем базовую навигацию с email
+                this.navLinksElement.innerHTML = `
+                    <a href="index.html">Главная</a>
+                    <a href="dashboard.html">${user.email.split('@')[0]}</a>
+                    <button class="btn btn-secondary logout-btn" id="logout-btn">Выход</button>
+                `;
+            }
             
             // Добавить обработчик для кнопки выхода
             const logoutBtn = document.getElementById('logout-btn');
@@ -135,13 +161,9 @@ async function handleLogout() {
     try {
         await auth.signOut();
         console.log('Пользователь вышел из системы');
-        window.location.href = 'index.html';
+        window.location.href = './index.html';
     } catch (error) {
         console.error('Ошибка при выходе:', error);
-        // Показываем ошибку пользователю
-        if (window.showErrorToast) {
-            window.showErrorToast('Не удалось выйти из аккаунта');
-        }
     }
 }
 

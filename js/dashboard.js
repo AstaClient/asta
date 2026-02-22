@@ -1,8 +1,13 @@
 // Модуль личного кабинета
-import { auth, db } from '../config/firebase-config.js';
-import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-import { showErrorToast } from './utils.js';
+import firebaseConfig from '../config/firebase-config.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+// Инициализация Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 /**
  * Класс для управления личным кабинетом
@@ -64,20 +69,17 @@ class DashboardModule {
             } else {
                 // Если документа нет, используем данные из Firebase Auth
                 this.displayUserData({
-                    username: this.currentUser.displayName || 'Пользователь',
-                    email: this.currentUser.email,
-                    createdAt: this.currentUser.metadata.creationTime
+                    username: this.currentUser.displayName || this.currentUser.email.split('@')[0],
+                    email: this.currentUser.email
                 });
             }
         } catch (error) {
             console.error('Ошибка загрузки данных пользователя:', error);
-            showErrorToast('Не удалось загрузить данные профиля');
             
             // Показываем базовые данные из Firebase Auth
             this.displayUserData({
-                username: this.currentUser.displayName || 'Пользователь',
-                email: this.currentUser.email,
-                createdAt: this.currentUser.metadata.creationTime
+                username: this.currentUser.displayName || this.currentUser.email.split('@')[0],
+                email: this.currentUser.email
             });
         }
     }
@@ -90,30 +92,24 @@ class DashboardModule {
         // Отображаем имя пользователя в навигации
         const usernameDisplay = document.getElementById('username-display');
         if (usernameDisplay) {
-            usernameDisplay.textContent = userData.username || userData.displayName || 'Пользователь';
+            usernameDisplay.textContent = userData.username || userData.displayName || this.currentUser.email.split('@')[0];
         }
 
         // Отображаем данные в профиле
         const usernameElement = document.getElementById('user-username');
         if (usernameElement) {
-            usernameElement.textContent = userData.username || userData.displayName || 'Не указано';
+            usernameElement.textContent = userData.username || userData.displayName || this.currentUser.email.split('@')[0];
         }
 
         const emailElement = document.getElementById('user-email');
         if (emailElement) {
-            emailElement.textContent = userData.email || 'Не указано';
+            emailElement.textContent = this.currentUser.email || 'Не указано';
         }
 
-        const createdElement = document.getElementById('user-created');
-        if (createdElement) {
-            const createdDate = userData.createdAt 
-                ? (userData.createdAt.toDate ? userData.createdAt.toDate() : new Date(userData.createdAt))
-                : new Date();
-            createdElement.textContent = createdDate.toLocaleDateString('ru-RU', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
+        // Отображаем UID вместо даты регистрации
+        const uidElement = document.getElementById('user-created');
+        if (uidElement) {
+            uidElement.textContent = this.currentUser.uid || 'Не указано';
         }
     }
 
