@@ -1,8 +1,7 @@
 // Модуль загрузки мод-клиента
 import firebaseConfig from '../config/firebase-config.js';
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-import { showErrorToast, showInfoToast, fetchWithErrorHandling } from './utils.js';
+import { getFirestore, doc, getDoc, setDoc, increment } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
 // Инициализация Firebase
 const app = initializeApp(firebaseConfig);
@@ -27,19 +26,22 @@ export class DownloadModule {
             const info = await this.getClientInfo();
             
             if (!info.isAvailable) {
-                showInfoToast('Файл клиента временно недоступен. Попробуйте позже');
+                alert('Файл клиента временно недоступен. Попробуйте позже');
                 return;
             }
             
             // Проверяем доступность файла
             const isAvailable = await this.checkAvailability();
             if (!isAvailable) {
-                showInfoToast('Файл клиента временно недоступен. Попробуйте позже');
+                alert('Файл клиента временно недоступен. Попробуйте позже');
                 return;
             }
             
             // Инициируем загрузку
             console.log('Начало загрузки клиента:', info.downloadUrl);
+            
+            // Увеличиваем счетчик скачиваний
+            await this.incrementDownloadCount();
             
             // Открываем ссылку для загрузки в новом окне
             window.open(info.downloadUrl, '_blank');
@@ -49,7 +51,51 @@ export class DownloadModule {
             
         } catch (error) {
             console.error('Ошибка при загрузке клиента:', error);
-            showErrorToast('Не удалось начать загрузку. Попробуйте позже');
+            alert('Не удалось начать загрузку. Попробуйте позже');
+        }
+    }
+    
+    /**
+     * Увеличивает счетчик скачиваний в Firestore
+     */
+    async incrementDownloadCount() {
+        try {
+            const counterRef = doc(this.db, 'counters', 'downloads');
+            await setDoc(counterRef, {
+                count: increment(1),
+                lastUpdated: new Date()
+            }, { merge: true });
+            
+            // Обновляем отображение счетчика
+            await this.displayDownloadCount();
+        } catch (error) {
+            console.error('Ошибка при увеличении счетчика:', error);
+        }
+    }
+    
+    /**
+     * Получает и отображает количество скачиваний
+     */
+    async displayDownloadCount() {
+        try {
+            const counterRef = doc(this.db, 'counters', 'downloads');
+            const counterDoc = await getDoc(counterRef);
+            
+            let count = 0;
+            if (counterDoc.exists()) {
+                count = counterDoc.data().count || 0;
+            }
+            
+            const countElement = document.getElementById('download-count');
+            if (countElement) {
+                countElement.textContent = count.toLocaleString('ru-RU');
+            }
+        } catch (error) {
+            console.error('Ошибка при получении счетчика:', error);
+            const countElement = document.getElementById('download-count');
+            if (countElement) {
+                countElement.textContent = '0';
+            }
         }
     }
     
@@ -209,6 +255,9 @@ const downloadModule = new DownloadModule();
 document.addEventListener('DOMContentLoaded', async () => {
     // Отображаем информацию о клиенте
     await downloadModule.displayClientInfo();
+    
+    // Отображаем счетчик скачиваний
+    await downloadModule.displayDownloadCount();
     
     // Добавляем обработчик на кнопку загрузки
     const downloadBtn = document.getElementById('download-btn');
